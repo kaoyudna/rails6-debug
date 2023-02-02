@@ -1,0 +1,19 @@
+<%= flash[:alert] %>
+<% @entries.each do |e| %>
+  <% unless e.user == current_user %>
+    <h2><strong><%= e.user.name %>さん</strong>とのチャット</h2>
+  <% end %>
+<% end %>
+
+  <% @messages.each do |m| %>
+    <div class="chat-box">
+      <%= m.content %>
+    </div>
+  <% end %>
+
+
+<%= form_with model: @message do |f| %>
+  <%= f.text_area :content %>
+    <%= f.hidden_field :room_id, value: @room.id %>
+      <%= f.submit %>
+<% end %>

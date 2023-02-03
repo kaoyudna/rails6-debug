@@ -5,15 +5,15 @@
   <% end %>
 <% end %>
 
-  <% @messages.each do |m| %>
-    <div class="chat-box">
-      <%= m.content %>
-    </div>
-  <% end %>
+<div class="chat-messages">
+  <%= render "messages/chat-index", messages: @messages %>
+</div>
 
 
-<%= form_with model: @message do |f| %>
+<%= form_with model: @message, local: false do |f| %>
   <%= f.text_area :content %>
     <%= f.hidden_field :room_id, value: @room.id %>
-      <%= f.submit %>
+  <div class="form-group">
+      <%= f.submit "送信", class: 'btn btn-primary' %>
+  </div>
 <% end %>

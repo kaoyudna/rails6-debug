@@ -1,0 +1,5 @@
+<% messages.each do |m| %>
+    <div class="chat-box">
+      <%=m.user.name %>:<%= m.content %>
+    </div>
+  <% end %>

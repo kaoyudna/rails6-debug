@@ -22,6 +22,8 @@ class User < ApplicationRecord
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: {maximum: 50}
 
+  has_many :view_counts, dependent: :destroy
+
 
 
   def get_profile_image

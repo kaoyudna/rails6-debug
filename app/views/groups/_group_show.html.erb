@@ -1,0 +1,32 @@
+<thead>
+  <tr>
+    <th></th>
+    <th>グループ名</th>
+    <th>紹介文</th>
+    <th>メンバー</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td><%= image_tag group.get_group_image, size:'50x50' %></td>
+    <td><%= group.name %></td>
+    <td><%= group.introduction %></td>
+    <td>
+      <% group.users.each do |member| %>
+        <li class="list-unstyled">
+          <%= member.name %>
+        </li>
+      <% end %>
+    </td>
+    <td>
+      <% if group.owner_id == current_user.id %>
+        <%= link_to "Edit", edit_group_path(group), class:"btn btn-primary" %>
+      <% elsif group.users.include?(current_user) %>
+        <%= link_to "Leave this group", group_path(group), method: :delete, class: "btn btn-danger", remote: true %>
+      <% else %>
+        <%= link_to "Join this group", group_join_path(group), class: "btn btn-success", remote: true %>
+      <% end %>
+    </td>
+  </tr>
+</tbody>

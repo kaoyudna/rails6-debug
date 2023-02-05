@@ -10,12 +10,14 @@ class GroupsController < ApplicationController
   def show
     @book = Book.new
     @group = Group.find(params[:id])
+    @books = @group.books
   end
 
   def join
     @group = Group.find(params[:group_id])
     @group.users << current_user
-    redirect_to groups_path
+    @books = Book.all
+    # redirect_to groups_path
   end
 
   def new
@@ -47,7 +49,8 @@ class GroupsController < ApplicationController
   def destroy
     @group = Group.find(params[:id])
     @group.users.delete(current_user)
-    redirect_to groups_path
+    @books = Book.all
+    # redirect_to groups_path
   end
 
 

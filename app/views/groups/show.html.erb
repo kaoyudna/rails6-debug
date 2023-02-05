@@ -8,40 +8,18 @@
     </div>
     <div class="col-md-8 offset-md-1">
       <h2>Group detail</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>グループ名</th>
-            <th>紹介文</th>
-            <th>メンバー</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><%= image_tag @group.get_group_image, size:'50x50' %></td>
-            <td><%= @group.name %></td>
-            <td><%= @group.introduction %></td>
-            <th>
-              <% @group.users.each do |member| %>
-                <li class="list-unstyled">
-                  <%= member.name %>
-                </li>
-              <% end %>
-            </th>
-            <td>
-              <% if @group.owner_id == current_user.id %>
-                <%= link_to "Edit", edit_group_path(@group), class:"btn btn-primary" %>
-              <% elsif @group.users.include?(current_user) %>
-                <%= link_to "Leave this group", group_path(@group), method: :delete, class: "btn btn-danger" %>
-              <% else %>
-                <%= link_to "Join this group", group_join_path(@group), class: "btn btn-success" %>
-              <% end %>
-            </td>
-          </tr>
-        </tbody>
+      <table class="table show">
+        <%= render 'group_show', group: @group %>
       </table>
+      <p><%= link_to "グループ一覧に戻る",groups_path %></p>
+      <h2>Group users book</h2>
+      <div class="users_book_index">
+        <% if @group.users.include?(current_user) %>
+          <%= render 'books/index', books: @books %>
+        <% else %>
+          <%= render 'transmission' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

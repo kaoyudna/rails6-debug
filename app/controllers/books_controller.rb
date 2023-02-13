@@ -6,10 +6,14 @@ class BooksController < ApplicationController
     @book_new = Book.new
     @book_comment = BookComment.new
     @user = @book.user
+    unless ViewCount.find_by(user_id: current_user.id, book_id: @book.id)
+      current_user.view_counts.create(book_id: @book.id)
+    end
   end
 
   def index
-    @books = Book.all
+    #@books = Book.all
+    @books = Book.includes(:favorite_users).where(created_at: Time.current.all_week).sort{|a,b| b.favorite_users.size <=> a.favorite_users.size}
     @book = Book.new
   end
 

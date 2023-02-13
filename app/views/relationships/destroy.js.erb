@@ -1,0 +1,4 @@
+$(".follower-count").html("<%= j(render 'relationships/followercount', user: @user) %>");
+$(".index-follower-count").html("<%= j(render 'relationships/followercount', user: current_user) %>");
+$(".followbutton").html("<%= j(render 'relationships/btn', user: @user) %>");
+$(".follow_button_<%= @user.id %>").html("<%= j(render 'relationships/btn', user: @user) %>");

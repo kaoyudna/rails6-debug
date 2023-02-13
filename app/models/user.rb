@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :books
   has_many :favorites, dependent: :destroy
+  has_many :favorite_books, through: :favorites, source: :book
   has_many :book_comments, dependent: :destroy
   has_one_attached :profile_image
   # follower_id : フォローしたユーザー
@@ -15,8 +16,13 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverce_of_relationships, source: :follower
 
+  has_many :messages, dependent: :destroy
+  has_many :entries, dependent: :destroy
+
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: {maximum: 50}
+
+  has_many :view_counts, dependent: :destroy
 
 
 
